@@ -1,0 +1,25 @@
+SELECT user_tbs.name,user_tbs.email,user_tbs.phone_number,user_tbs.description,user_tbs.address,user_tbs.user_image,social_media_tbs.social_media_name,
+social_media_tbs.social_media_account_link,social_media_tbs.social_media_image,experience_tbs.experience_name,experience_tbs.experience_duration,
+experience_tbs.experience_technology,experience_tbs.experience_description,experience_tbs.experience_link,experience_tbs.experience_image,
+experience_tbs.experience_video,education_tbs.education_name,education_tbs.education_major,education_tbs.education_duration,education_tbs.education_grade,
+education_tbs.education_description,education_tbs.education_image,skill_tbs.skill_name,skill_tbs.skill_duration,skill_tbs.skill_description,skill_tbs.skill_image
+FROM user_access_tbs 
+JOIN user_tbs ON user_access_tbs.user_id=user_tbs.id
+JOIN social_media_tbs ON user_access_tbs.social_media_id=social_media_tbs.id
+JOIN experience_tbs ON user_access_tbs.experience_id=experience_tbs.id
+JOIN education_tbs ON user_access_tbs.education_id=education_tbs.id
+JOIN skill_tbs ON user_access_tbs.skill_ids=skill_tbs.id;
+
+
+
+SELECT user_tbs.*,social_media_tbs.*,experience_tbs.*,education_tbs.*,skill_tbs.*
+FROM user_access_tbs 
+JOIN user_tbs ON user_access_tbs.user_id=user_tbs.id
+JOIN social_media_tbs ON user_access_tbs.social_media_id=social_media_tbs.id
+JOIN experience_tbs ON user_access_tbs.experience_id=experience_tbs.id
+JOIN education_tbs ON user_access_tbs.education_id=education_tbs.id
+JOIN skill_tbs ON user_access_tbs.skill_ids=skill_tbs.id;
+
+
+
+SELECT social_media_tbs.social_media_name FROM user_access_tbs JOIN social_media_tbs ON user_access_tbs.social_media_id=social_media_tbs.id;

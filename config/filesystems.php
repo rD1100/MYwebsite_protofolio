@@ -56,6 +56,24 @@ return [
             'throw' => false,
         ],
 
+        'my_files'=>[
+            'driver'=>'local',
+            'root'=>public_path().'/',
+        ],
+
+        'my_filesImage'=>[
+            'driver'=>'local',
+            'root'=>public_path().'/',
+        ],
+
+        'my_fileImageEdu'=>[
+            'driver'=>'local',
+            'root'=>public_path().'/',
+        ],
+        'my_fileImageUser'=>[
+            'driver'=>'local',
+            'root'=>public_path().'/',
+        ],
     ],
 
     /*

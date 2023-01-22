@@ -1,15 +1,210 @@
 @charset "UTF-8";
-/*!
-* Start Bootstrap - Freelancer v6.0.5 (https://startbootstrap.com/theme/freelancer)
-* Copyright 2013-2020 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-freelancer/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap v4.5.3 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+
+#addressFooter{
+  margin-left:20%;
+}
+#eduDescript{
+  text-align: justify;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+#eduDivider{
+  margin-bottom: 2%;
+}
+#eduDuration{
+  margin-top: -1px;
+}
+#Major{
+  color: rgb(53, 51, 51);
+  margin-top:25px ;
+}
+.descriptEdu{
+  text-align: justify;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+#dividerEdu{
+  margin-bottom: 2%;
+}
+#durationEdu{
+  margin-top: -1px;
+}
+#subtitleEducation{
+  color: rgb(53, 51, 51);
+  margin-top:25px ;
+}
+#experienceDesc{
+  text-align: justify;
+  margin-left: 100px;
+  margin-right: 100px
+}
+#dividerCustom{
+  margin-bottom: 2%;
+}
+#containerFlexImg{
+  margin-top: -3%;
+}
+.imageContainer{
+  margin-top:1%;
+}
+
+.circle {
+  border-color: rgb(114, 193, 217);
+  border-image: none;
+  border-radius: 50% 50% 50% 50%;
+  border-style: solid;
+  border-width: 10px;
+  height: 260px;
+  width: 250px;
+  overflow: hidden;
+}
+.circleSkill{
+  background: red;
+  border-image: none;
+  border-radius: 50% 50% 50% 50%;
+  border-width: 10px;
+  text-align: center;
+  height: 170px;
+  width: 180px;
+  overflow: hidden;
+}
+img {
+  height: 100%;
+  width: 100%;
+}
+
+tr th{
+border: solid black
+}
+table{
+  border: 1px solid black
+}
+
+.subtitleExperience{
+  margin-top: 3%;
+}
+
+.flexContainer {
+  margin-left: -1rem;
+
+  display: flex;
+  text-align: center;
+
+  flex-wrap: wrap;
+
+}
+
+
+
+.flexContainer > .isi {
+
+  margin: 1rem 2rem 1rem 2rem;
+  padding: 35px 60px 23px 60px;
+  font-size: 30px;
+  border-radius: 10px;
+  background: rgb(43, 42, 42);
+  cursor: pointer;
+
+}
+.content{
+
+  font-size:  15px;
+  width: 280px;
+  margin: 0px 0px 0px 0px;
+  padding: 10px 0px 20px 0px;
+  text-align: justify;
+  
+  }
+.judul{
+  font-size: 150%;
+  }
+
+.borderSkill{
+  color: white;
+  font-size: 115px;
+  text-align: center;
+  transition: transform .2s;
+}
+
+.borderSkill:hover{
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+}
+
+.skillLogo{
+
+  border: solid rgb(245, 10, 10);
+  background: rgb(43, 42, 42);
+}
+
+.flexContainerSchool {
+  margin-left: 4rem;
+  margin-right: 5.7rem;
+  border:1px solid rgba(3, 165, 157, 0.569);
+  border-radius: 11px;
+  border-style: solid;
+  border-width: 3px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.containerHover{
+ 
+  position: relative;
+  cursor: pointer;
+
+}
+
+#borderSchool {
+  margin: 0rem 0rem 0rem 0rem;
+  padding: 35px 400px 250px 65px;
+  font-size: 30px;
+  background-image: url('/assets/img/school/uty.png');
+}
+
+
+#borderSchool1 {
+
+  margin: 0rem 0rem 0rem 0rem;
+  padding: 35px 400px 250px 65px;
+  font-size: 30px;
+  background-image: url('/assets/img/school/smanidy1.jpg');
+
+}
+
+.hoverImg{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  /* transparent  */
+  opacity: 0;
+      /* transparent  */
+  transition: .5s ease;
+  background-color: black;
+}
+
+.containerHover:hover .hoverImg{
+  opacity: 0.8;
+}
+#icon{
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  }
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;

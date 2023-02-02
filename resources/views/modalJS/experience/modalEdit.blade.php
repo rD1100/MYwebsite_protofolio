@@ -19,38 +19,52 @@
                         <input type="text" class="form-control" id="inputId" 
                             name="id" placeholder=" id" value="" readonly>
                     </div>
-                       
-                        <div class="form-group">
-                                <input type="text" class="form-control" id="nameID" 
-                                name="name" placeholder=" Name" value="" required>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" 
+                        name="Institution" id="InstitutionID" placeholder="Institution Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control"  
+                        name="experience_name" id="experience_nameID" placeholder="Experience Name" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="far fa-calendar-alt"></i>
+                        </span>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="emailID" 
-                            name="email" placeholder="Email " required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="phoneNumberID" 
-                            name="phone_number" placeholder="Phone" required>
-                        </div>
-                        <div class="form-group">
-                            
-                            <textarea  class="form-control" id="userDescriptionID" 
-                            name="user_description" placeholder="Description" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="addressID" 
-                            name="address" placeholder="Address" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Image </label>
-                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="path_image" 
-                            name="path_image" >
-                            @error('image')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
+                        <input name="experience_duration" id="experience_durationID" type="text" class="form-control float-right" >
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" 
+                        name="experience_technology" id="experience_technologyID" placeholder="technology" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea  class="form-control" id="experience_descriptionID" 
+                        name="experience_description" placeholder="Description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                    <input type="text" class="form-control"  
+                    name="experience_link" id="experience_linkID" placeholder="Link" required>
+                </div>
+                    <div class="form-group">
+                        <label>Image </label>
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="experience_image" 
+                        name="experience_image" >
+                        @error('image')
+                            <div class="invalid-feedback">
+                            {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Video</label>
+                        <input type="file" class="form-control" name="experience_video" id="experience_video" >
+                    </div>
                     
     
                         <div class="modal-footer">
@@ -77,18 +91,19 @@
         console.log(UserID);
         //fetch data user
         $.ajax({
-            url:`user/${UserID}`,
+            url:`experience/${UserID}`,
             type:"GET",
             cache:false,
             processData: false,
             success:function(response){
                 $('#inputId').val(response.data.id);
-                $('#nameID').val(response.data.name);
-                $('#emailID').val(response.data.email);
-                $('#phoneNumberID').val(response.data.phone_number);
-                $('#userDescriptionID').val(response.data.user_description);
-                $('#addressID').val(response.data.address);
-              
+                $('#InstitutionID').val(response.data.Institution);
+                $('#experience_nameID').val(response.data.experience_name);
+                $('#experience_durationID').val(response.data.experience_duration);
+                $('#experience_technologyID').val(response.data.experience_technology);
+                $('#experience_descriptionID').val(response.data.experience_description);
+                $('#experience_linkID').val(response.data.experience_description);
+
                 $('#modalEdit').modal('show');
                 
             }
@@ -96,6 +111,7 @@
         
                 
     });
+
 
     //update data
     $(document).ready(function () {
@@ -117,7 +133,7 @@
 
         $.ajax({
 
-            url:'user/' + id,
+            url:'experience/' + id,
             type:'POST',
             cache: false,
             processData: false,
@@ -136,20 +152,32 @@
                 //data post
                 let postTbEdit =`
                 <tr id="index_${response.data.id}">
-                    <td>${response.data.name}</td>
-                    <td>${response.data.email}</td>
-                    <td>${response.data.phone_number}</td>
-                    <td>${response.data.user_description}</td>
-                    <td>${response.data.address}</td>
-                    <td style="position: absolute;"><img class="imgUser" src="${response.data.path_image}" alt="" ></td>
+                    <td>${response.data.Institution}</td>
+                    <td>${response.data.experience_name}</td>
+                    <td>${response.data.experience_duration}</td>
+                    <td>${response.data.experience_technology}</td>
+                    <td>${response.data.experience_description}</td>
+                    <td>${response.data.experience_link}</td>
+                    <td style="">
+                    <img  style="width: 40px;height: 30px;" class="imgUser" src="${response.data.experience_image}" alt="" >
+                    </td>
+                    <td> 
+                        <video class="" src="${response.data.experience_video}" controls 
+                        style="width: 40px;height: 30px;">
+                        </video>
+                    </td>
                     <td style="text-align: center">
+                        <div style="margin-left: -5%;">
                         <button  id="btnEdit" data-id="${response.data.id}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+
                         <form id="idDelete" method="post" style="display: inline;">
                             @csrf
                             @method('delete')
                             <button name="submit" id="btnDeleteID"  data-id="${response.data.id}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                         </form>
+                        </div>
                     </td>
+           
                 </tr>
                 `;
 

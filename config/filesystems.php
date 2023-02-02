@@ -78,6 +78,14 @@ return [
             'driver'=>'local',
             'root'=>public_path().'/',
         ],
+        'my_filesImageExperienceUpdate'=>[
+            'driver'=>'local',
+            'root'=>public_path().'/',
+        ],
+        'my_filesVideoUpdate'=>[
+            'driver'=>'local',
+            'root'=>public_path().'/',
+        ],
     ],
 
     /*

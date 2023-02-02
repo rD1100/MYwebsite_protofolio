@@ -177,8 +177,8 @@
   <!-- /.content-wrapper -->
 
   @include('modalJS.experience.modalCreate') 
-  {{-- @include('modalJS.experience.modalEdit')
-  @include('modalJS.experience.deletePost')  --}}
+  @include('modalJS.experience.modalEdit')
+  {{-- @include('modalJS.experience.deletePost')  --}}
 @endsection
 
 

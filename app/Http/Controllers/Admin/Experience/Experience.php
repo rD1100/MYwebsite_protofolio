@@ -96,7 +96,13 @@ class Experience extends Controller
      */
     public function show($id)
     {
-        //
+        $data = experience_tb::where('id',$id)->first();
+      
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Post cok',
+            'data'    => $data  
+        ]);
     }
 
     /**
@@ -119,7 +125,50 @@ class Experience extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data=Validator::make($request->all(), [
+
+            'Institution'=>'required|string',
+            'experience_name'=>'required|string',
+            'experience_duration'=>'required|string',
+            'experience_technology'=>'required|string',
+            'experience_description'=>'required|string',
+            'experience_link'=>'required|string',
+            'experience_image'=>'image|file|mimes:jpg,png,jpeg,giv,svg|max:3000',
+            'experience_video' => 'file|mimetypes:video/mp4',
+
+        ]);
+
+        if($data->fails()){
+            return response()->json($data->errors(), 422);
+        }
+
+        $data=experience_tb::find($id);
+        $data->Institution=$request->Institution;
+        $data->experience_name=$request->experience_name;
+        $data->experience_duration=$request->experience_duration;
+        $data->experience_technology=$request->experience_technology;
+        $data->experience_description=$request->experience_description;
+        $data->experience_link=$request->experience_link;
+        // $data->experience_image=$request->experience_image;
+        // $data->experience_video=$request->experience_video;
+
+        if($request->hasFile('experience_image')){
+            $imagePath=$request->file('experience_image')->store('ImagePostExperienceUpdate',['disk'=>'my_filesImageExperienceUpdate']);
+            $data->experience_image=$imagePath;
+        }
+
+        if($request->hasFile('experience_video')){
+            $videoPath=$request->file('experience_video')->store('videoPostUpdate',['disk'=>'my_filesVideoUpdate']);
+            $data->experience_video=$videoPath; 
+        }
+
+        $data->save();
+
+        return response()->json([
+            'success'=>true,
+            'message'=>'Experience data has been update',
+            'data'=>$data,
+        ]);
     }
 
     /**

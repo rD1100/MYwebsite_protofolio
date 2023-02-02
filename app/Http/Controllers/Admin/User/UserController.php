@@ -136,14 +136,7 @@ class UserController extends Controller
 
         // $imagePath=$request->file('path_image')->store('ImagePostUserUpdate',['disk'=>'my_fileImageUserUpdate']);
         $user_tb=user_tb::find($id);
-        // $user_tb->update([
-        //     'name'=>$request->name,
-        //     'email'=>$request->email,
-        //     'phone_number'=>$request->phone_number,
-        //     'user_description'=>$request->user_description,
-        //     'address'=>$request->address,
-        //     // 'path_image'=>$imagePath
-        // ]);
+    
         $user_tb->name=$request->name;
         $user_tb->email=$request->email;
         $user_tb->phone_number=$request->phone_number;

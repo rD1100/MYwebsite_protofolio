@@ -1,6 +1,31 @@
 
 @extends('layouts.admin.main')
 @section('content')
+
+  {{-- content --}}
+<script src="/js/admin/jquery/jquery.min.js"></script>
+
+<style>
+
+  .imgUser{
+  width: 40px;
+  height: 30px;
+  /* display: block; */
+  /* visiblity: visible; */
+  transition: transform .3s;
+}
+
+.imgUser:hover{
+  /* display: block; */
+  /* visibility: hidden; */
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+  width: 150px;
+  height: 120px;
+
+}
+</style>
       <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -37,123 +62,72 @@
                     @endif
                     <div style="float: right">
                   
-                        <div data-target="#addUser" data-ta class="btn btn-sm btn-primary mb-3 " data-toggle="modal"  >
-                            <div style="">
+                        <a href="javascript:void(0)" id="addUser" data-ta class="btn btn-sm btn-primary mb-3 "  >
+                            
                               <i class="fas fa-plus fa-sm"></i>
                               Add User
-                            </div>
-                        </div>
+                          
+                          </a>
                       
                     </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered ">
+               
+                <table id="" class="table  table-bordered table-striped " >
                   <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Name </th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Description</th>
-                    <th>Address</th>
-                    <th>Image</th>
-          
-                    <th>Status</th>
-             
-
-                  </tr>
-                  </thead>
-                  <tbody>
-                  @foreach ($data as $item)
                     <tr>
-          
-                        <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $item->name}} </td>
-                        <td>{{ $item->email}}</td>
-                        <td>{{ $item->phone_number}} </td>
-                        <td>{{ $item->user_description}}</td>
-                        <td>{{ $item->address}}</td>
-                        <td>{{ $item->user_image}}</td>
-                 
-            
-                        <td><div data-targ>Edit</div></td>
-                        <td><a href="">Delete</a></td>
+                      <th scope="col">Name </th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Status</th>
                     </tr>
-
-                  @endforeach
-                    </tbody>
-                    <tfoot>
+                  </thead>
+                  <tbody id="tablePosts">
+                  
+                      @foreach ($data as $item)
+                        <tr id="index_{{ $item->id }}">
+                          <td>{{ $item->name}} </td>
+                          <td>{{ $item->email}}</td>
+                          <td>{{ $item->phone_number}} </td>
+                          <td>{{ $item->user_description}}</td>
+                          <td>{{ $item->address}}</td>
+                          <td style="position: absolute;"><img class="imgUser" src="{{ $item->path_image}}" alt="" ></td>
+                          <td style="text-align: center">
+                            <button  id="btnEdit" data-id="{{ $item->id }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                            <form id="idDelete" method="post" style="display: inline;">
+                              @csrf
+                              @method('delete')
+                              <button name="submit" id="btnDeleteID"  data-id="{{ $item->id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                            </form>
+                          </td>
+                        </tr>
+                      @endforeach
+                  
+                  </tbody>
+                  <tfoot>
                     <tr>
-                    <th>No</th>
-                    <th>Name </th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Description</th>
-                    <th>Address</th>
-                    <th>Image</th>
-                    <th>Status</th>
-       
-                  </tr>
+                      <th scope="col">Name </th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Status</th>
+                    </tr>
                   </tfoot>
                 </table>
+
+                
               </div>
               <!-- /.card-body -->
-              <div class="modal fade" id="addUser" tabindex="-1" role="dialog" 
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                   <div class="modal-content">
-                       <div class="modal-header">
-                           <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                           </button>
-                       </div>
-                       <div class="modal-body">
-                           <form action="{{ url('user') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                   <input type="text" class="form-control" id="nama_barang" 
-                                   name="name" placeholder=" Name" required>
-                               </div>
-                               <div class="form-group">
-                                   <input type="text" class="form-control" id="keterangan" 
-                                   name="email" placeholder="Email " required>
-                               </div>
-                               <div class="form-group">
-                                   <input type="text" class="form-control" id="harga" 
-                                   name="phone_number" placeholder="Phone" required>
-                               </div>
-                               <div class="form-group">
-                                   
-                                   <textarea  class="form-control" id="stok" 
-                                   name="user_description" placeholder="Description" required></textarea>
-                               </div>
-                               <div class="form-group">
-                                <input type="text" class="form-control" id="stok" 
-                                name="address" placeholder="Address" required>
-                            </div>
-                               <div class="form-group">
-                                   <label>Image </label>
-                                   <input type="file" class="form-control @error('image') is-invalid @enderror" id="gambar" 
-                                   name="user_image" >
-                                   @error('image')
-                                       <div class="invalid-feedback">
-                                          {{ $message }}
-                                       </div>
-                                   @enderror
-                               </div>
-                            
-   
-                               <div class="modal-footer">
-                                   <button type="button" class="btn btn-dark" data-dismiss="modal">Exit</button>
-                                   <button type="submit" class="btn btn-primary">Save</button>
-                               </div>
-                       </div>
-                       </form>
-                   </div>
-               </div>
-           </div>
+           
+
+         
+      </div>
             </div>
             <!-- /.card -->
           </div>
@@ -163,11 +137,16 @@
       </div>
       <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
+
   </div>
-  <!-- /.content-wrapper -->
+
+@include('modalJS.user.modalCreate') 
+@include('modalJS.user.modalEdit')
+@include('modalJS.user.deletePost')
+
+{{-- js --}}
+{{-- @include('JS_CRUD.user.create')  --}}
+
 @endsection
 
-
-
-  
+ 

@@ -1,8 +1,11 @@
 
 @extends('layouts.admin.main')
 @section('content')
+
 <link rel="stylesheet" href="/css/admin/daterangepicker.css">
-      <!-- Content Wrapper. Contains page content -->
+<script src="/js/admin/jquery/jquery.min.js"></script>
+
+<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -39,12 +42,12 @@
                     @endif
                 <div style="float: right">
                
-                    <div data-target="#addExperience" data-ta class="btn btn-sm btn-primary mb-3 " data-toggle="modal"  >
-                        <div style="">
+                    <a href="javascript:void(0)" id="addExperience" data-ta class="btn btn-sm btn-primary mb-3 " >
+                      
                           <i class="fas fa-plus fa-sm"></i>
                           Add Experience
-                        </div>
-                    </div>
+                        
+                    </a>
                   
                 </div>
              
@@ -52,7 +55,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover" style="">
+                <table  class="table table-bordered table-hover" style="">
                   <thead>
                   <tr>
                     <th>Institution Name</th>
@@ -63,23 +66,43 @@
                     <th>Link</th>
                     <th>Image</th>
                     <th>Video</th>
-                    <th>Updated</th>
+                    <th>Status</th>
+             
                   </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="tablePosts">
                     @foreach ($data as $item)
-                  <tr>
-                    <td>{{ $item->Institution}}</td>
-                  <td>{{ $item->experience_name	 }}</td>
-                  <td>{{ $item->experience_duration }} </td>
-                  <td>{{ $item->experience_technology }}</td>
-                  <td> {{ $item->experience_description }}</td>
-                  <td>{{ $item->experience_link }}</td>
-                  <td>{{ $item->experience_image }}</td>
-                  <td>{{ $item->experience_video }}</td>
-                  <td>{{ $item->updated_at }}</td>
+                    <tr id="index_{{$item->id }}">
+                      <td>{{ $item->Institution}}</td>
+                      <td>{{ $item->experience_name	 }}</td>
+                      <td>{{ $item->experience_duration }} </td>
+                      <td>{{ $item->experience_technology }}</td>
+                      <td> {{ $item->experience_description }}</td>
+                      <td>{{ $item->experience_link }}</td>
+                      <td style="">
+                        <img  style="width: 40px;height: 30px;" class="imgUser" src="{{ $item->experience_image}}" alt="" >
+                      </td>
+                      <td> 
+                        <video class="" src="{{ $item->experience_video}}" controls 
+                        style="width: 40px;height: 30px;">
+                        </video>
+                      </td>
+                      <td style="text-align: center">
+                          <div style="margin-left: -10%;">
+                            <button  id="btnEdit" data-id="{{ $item->id }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                      
+                        
+                            <form id="idDelete" method="post" style="display: inline;">
+                              @csrf
+                              @method('delete')
+                              <button name="submit" id="btnDeleteID"  data-id="{{ $item->id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                            </form>
+                          </div>
+                        
+                      </td>
+               
       
-                  </tr>
+                    </tr>
                   @endforeach
                   
                   </tbody>
@@ -93,105 +116,14 @@
                     <th>Link</th>
                     <th>Image</th>
                     <th>Video</th>
-                    <th>Updated</th>
-         
+                    <th>Status</th>
            
                   </tr>
                   </tfoot>
                 </table>
               </div>
 
-              <div class="modal fade" id="addExperience" tabindex="-1" role="dialog" 
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                 <div class="modal-dialog" role="document">
-                     <div class="modal-content">
-                         <div class="modal-header">
-                             <h5 class="modal-title" id="exampleModalLabel">Add Experience</h5>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                         <div class="modal-body">
-                             <form action="{{ url('experience') }}" method="post" enctype="multipart/form-data">
-                              @csrf
-                              <div class="form-group">
-                                <input type="text" class="form-control" 
-                                name="Institution" placeholder="Institution Name" required>
-                              </div>
-                              <div class="form-group">
-                                     <input type="text" class="form-control"  
-                                     name="experience_name" placeholder="Experience Name" required>
-                                 </div>
-                                 <div class="form-group">
-                                     {{-- <input type="text" class="form-control" id="keterangan" 
-                                     name="experience_duration" placeholder="Duration" required> --}}
-
-                                     <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                          <i class="far fa-calendar-alt"></i>
-                                        </span>
-                                      </div>
-                                      <input name="experience_duration" type="text" class="form-control float-right" id="reservation">
-                                    </div>
-                                 </div>
-     
-                                 <!-- <div class="form-group">
-                                     <select class="form-control" name="kriteria" id="kriteria" required>
-                                     <option selected>Sebagai</option>
-                                                 <option>Reseller</option>
-                                                 <option >Pelatih</option>
-                                                 <option >Agen</option>
-                                           </select>
-     
-                                 </div> -->
-     
-                                 {{-- <div class="form-group">
-                                     <select class="form-control" name="kategori" id="kategori" required>
-                                         <option>Taekwondo</option>
-                                         <option>Karate</option>
-                                         <option>Judo</option>
-                                         <option>Boxing</option>
-                                     </select>
-                                 </div> --}}
-                                 
-                                 <div class="form-group">
-                                     <input type="text" class="form-control" 
-                                     name="experience_technology" placeholder="technology" required>
-                                 </div>
-                                 <div class="form-group">
-                                     <textarea  class="form-control" id="stok" 
-                                     name="experience_description" placeholder="Description" required></textarea>
-                                 </div>
-                                 <div class="form-group">
-                                  <input type="text" class="form-control"  
-                                  name="experience_link" placeholder="Link" required>
-                              </div>
-                                 <div class="form-group">
-                                     <label>Image </label>
-                                     <input type="file" class="form-control @error('image') is-invalid @enderror" id="gambar" 
-                                     name="experience_image" >
-                                     @error('image')
-                                         <div class="invalid-feedback">
-                                            {{ $message }}
-                                         </div>
-                                     @enderror
-                                 </div>
-                                 <div class="form-group">
-                                  <label>Video</label>
-                                  <input type="file" class="form-control" 
-                                  name="experience_video" >
-                              </div>
-     
-                                 <div class="modal-footer">
-                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Exit</button>
-                                     <button type="submit" class="btn btn-primary">Save</button>
-                                 </div>
-                         </div>
-                         </form>
-                     </div>
-                 </div>
-             </div>
+            
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -243,6 +175,10 @@
 
   <script src="/js/admin/daterangepicker.js"></script>
   <!-- /.content-wrapper -->
+
+  @include('modalJS.experience.modalCreate') 
+  {{-- @include('modalJS.experience.modalEdit')
+  @include('modalJS.experience.deletePost')  --}}
 @endsection
 
 

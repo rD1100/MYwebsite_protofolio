@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User\user_tb;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class UserController extends Controller
 {
@@ -16,6 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $data=user_tb::get();
+        // dd($data);
         return view('admin.user')->with('data',$data);
     }
 
@@ -38,22 +41,21 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $data=$request->validate([
+        $data=Validator::make($request->all(), [
             'name'=>'required|string',
             'email'=>'required|string',
             'phone_number'=>'required|string',
             'user_description'=>'required|string',
             'address'=>'required|string',
-            'user_image'=>'required|image|file|mimes:jpg,png,jpeg,giv,svg|max:3000',
+            'path_image'=>'image|file|mimes:jpg,png,jpeg,giv,svg|max:3000',
             
 
         ]);
 
-        $dataDescription=[
-            'user_description'=>$request->user_description
-        ];
+        if($data->fails()){
+            return response()->json($data->errors(), 422);
+        }
 
-        // dd($data);
         $saveFile= new user_tb;
         $saveFile->name=$request->name;
         $saveFile->email=$request->email;
@@ -61,21 +63,21 @@ class UserController extends Controller
         $saveFile->user_description=$request->user_description;
         $saveFile->address=$request->address;
     
+        // dd($request->path_image);
+        if($request->hasFile('path_image')){
 
-        if($request->hasFile('user_image')){
-         
-            $imagePath=$request->file('user_image');
-            $fileName=$imagePath->getClientOriginalName();
-            
-            $imagePath->storeAs('ImagePostUser',$fileName);
-            $saveFile->user_image=$fileName;
-            
+            $imagePath=$request->file('path_image')->store('ImagePostUser',['disk'=>'my_fileImageUser']);    
+            $saveFile->path_image=$imagePath;
+
         }
-
+ 
         $saveFile->save();
-   
 
-        return redirect()->to('user')->with('success','New data User has been added')  ; 
+        return response()->json([
+            'success' => true,
+            'message' => 'User data has been added',
+            'data'    => $saveFile  
+        ]);
     }
 
     /**
@@ -86,7 +88,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = user_tb::where('id',$id)->first();
+      
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Post cok',
+            'data'    => $data  
+        ]);
+      
     }
 
     /**
@@ -97,7 +106,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+     
     }
 
     /**
@@ -107,9 +116,55 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+    //    dd($request);
+        
+        $validator = Validator::make($request->all(), [
+            'name'=>'required|string',
+            'email'=>'required|string',
+            'phone_number'=>'required|string',
+            'user_description'=>'required|string',
+            'address'=>'required|string',
+            'user_image'=>'image|file|mimes:jpg,png,jpeg,giv,svg|max:3000',
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // $imagePath=$request->file('path_image')->store('ImagePostUserUpdate',['disk'=>'my_fileImageUserUpdate']);
+        $user_tb=user_tb::find($id);
+        // $user_tb->update([
+        //     'name'=>$request->name,
+        //     'email'=>$request->email,
+        //     'phone_number'=>$request->phone_number,
+        //     'user_description'=>$request->user_description,
+        //     'address'=>$request->address,
+        //     // 'path_image'=>$imagePath
+        // ]);
+        $user_tb->name=$request->name;
+        $user_tb->email=$request->email;
+        $user_tb->phone_number=$request->phone_number;
+        $user_tb->user_description=$request->user_description;
+        $user_tb->address=$request->address;
+
+        if($request->hasFile('path_image')){
+
+            $imagePath=$request->file('path_image')->store('ImagePostUserUpdate',['disk'=>'my_fileImageUserUpdate']);  
+            $user_tb->path_image=$imagePath;
+
+
+        }
+        $user_tb->save();
+
+
+        return response()->json([
+            'success'=>true,
+            'message'=>'User data has been update',
+            'data'=>$user_tb,
+        ]);
     }
 
     /**
@@ -120,6 +175,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // dd('delete');
+        $dataDeleted=user_tb::find($id)->delete();
+       
+        return response()->json([
+            'success'=>true,
+            'message'=>'User data has been delete!',
+            'data'=>$dataDeleted,
+           
+        ]);
     }
 }

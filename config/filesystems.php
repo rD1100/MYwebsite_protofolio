@@ -56,12 +56,12 @@ return [
             'throw' => false,
         ],
 
-        'my_files'=>[
+        'my_filesVideo'=>[
             'driver'=>'local',
             'root'=>public_path().'/',
         ],
 
-        'my_filesImage'=>[
+        'my_filesImageExperience'=>[
             'driver'=>'local',
             'root'=>public_path().'/',
         ],
@@ -71,6 +71,10 @@ return [
             'root'=>public_path().'/',
         ],
         'my_fileImageUser'=>[
+            'driver'=>'local',
+            'root'=>public_path().'/',
+        ],
+        'my_fileImageUserUpdate'=>[
             'driver'=>'local',
             'root'=>public_path().'/',
         ],

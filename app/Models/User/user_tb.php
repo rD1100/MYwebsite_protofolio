@@ -19,6 +19,7 @@ class user_tb extends Model
         'description',
         'address',
         'user_image',
+        'path_image',
         'created_at',
         'updated_at',
       

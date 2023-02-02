@@ -6,23 +6,23 @@
             <div class="container d-flex align-items-center flex-column" id="containerFlexImg" >
                 <!-- Masthead Avatar Image-->
                 <div  class="circle">
-                    {{-- <img class="masthead-avatar mb-1" src="assets/img/img1-1.jpg" alt="" style="border-radius: 60%; border:4px solid black" /> --}}
                     @foreach ($data as $item)
-                    <img src="{{ $item->user_image }}" alt="" />
+                        <img class="masthead-avatar mb-1" src="{{ $item->path_image }}" alt="" style="border-radius: 60%; border:4px solid black" />
                     @endforeach
+                   
+                  
                 </div>
 
                 <!-- Icon Divider-->
                 <div class="imageContainer">
-                    @foreach ($data as $item)
+                  
                         <h1 class="masthead-heading text-uppercase mb-0"> 
                         
                         
-                                {{ $item->name }}
                             
                         
                         </h1>
-                    @endforeach
+                  
                     {{-- <p class="masthead-subheading font-weight-light mb-0">Back End Developer</p> --}}
                     <div class="text-center mt-4 ">
                         <a class="btn btn-xl btn-outline-light js-scroll-trigger " href="#about">
@@ -123,7 +123,6 @@
                                 
                             </div>
                         
-                        
                         </div>
                        
                   
@@ -188,14 +187,14 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 " >
                                     <!-- Portfolio Modal - Title-->
-                                    @foreach ($data as $item)
+                                   
                                         <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal1Label">
-                                            {{ $item->skill_name }}
+                                       
                                             {{-- PHP programming language --}}
                                         </h2>
                                         <h3 class="subtitleExperience text-uppercase text-secondary" >
                                             {{-- 3 years --}}
-                                            {{ $item->skill_duration }}
+                                           
                                         </h3> 
                                 
                                     
@@ -212,9 +211,9 @@
                                     
                                     
                                     <div class="experienceDesc" >
-                                        {{ $item->skill_description }}
+                                   
                                     </div>
-                                @endforeach            {{-- <div class="col-lg-4 mr-auto text-left" ><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div> --}}
+                                   {{-- <div class="col-lg-4 mr-auto text-left" ><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div> --}}
                               
                                   
                                    
@@ -247,9 +246,7 @@
                 <!-- About Section Content-->
                 <div class="row ml-3 mr-3 " >
                     <div  class=" ml-auto"><p class="lead">
-                        @foreach ($data as $item)
-                            {{ $item->description }}
-                        @endforeach
+                     
                     </p></div>
                     
                 </div>

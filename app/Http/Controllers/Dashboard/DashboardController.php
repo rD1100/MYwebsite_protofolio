@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\user_access_tb;
+use App\Models\User\user_tb;
 
 class DashboardController extends Controller
 {
@@ -16,16 +16,11 @@ class DashboardController extends Controller
 
      protected $user_access_tb;
 
-    public function __construct(user_access_tb $user_access_tb)
-    {
-        $this->user_access_tb = $user_access_tb;
-    }
+
     public function index()
     {
-        // $data=[
-        //     'data'=>$this->user_access_tb->oneUser(),
-        // ];
-        $data=user_access_tb::get();
+      $data=user_tb::latest()->get();
+     
         
         
         // dd($data);

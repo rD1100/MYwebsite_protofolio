@@ -1,8 +1,13 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta name="csrf-token" content="{{csrf_token()}}">
+  {{-- <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> --}}
+
+  
+  
   <title>Admin</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -16,7 +21,7 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="/css/admin/icheck-bootstrap.min.css">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="/css/admin/jqvmap.min.css">
+  {{-- <link rel="stylesheet" href="/css/admin/jqvmap.min.css"> --}}
   <!-- Theme style -->
   <link rel="stylesheet" href="/css/admin/adminlte.min.css">
   <!-- overlayScrollbars -->
@@ -25,6 +30,12 @@
   <link rel="stylesheet" href="/css/admin/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/css/admin/summernote-bs4.min.css">
+
+  <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -99,7 +110,7 @@
   </script>
   
 <!-- ChartJS -->
-<script src="/js/admin/Chart.min.js"></script>
+{{-- <script src="/js/admin/Chart.min.js"></script> --}}
 <!-- Sparkline -->
 <script src="/js/admin/sparkline.js"></script>
 <!-- JQVMap -->
@@ -121,6 +132,22 @@
 <!-- AdminLTE for demo purposes -->
 {{-- <script src="/js/admin/demo.js"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/js/admin/dashboard.js"></script>
+{{-- <script src="/js/admin/dashboard.js"></script> --}}
+
+
+
+{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
+</script>
+<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+<script>
+  $(document).ready( function () {
+    $('#example2').DataTable();
+} );
+</script> --}}
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script> --}}
+
 </body>
 </html>
